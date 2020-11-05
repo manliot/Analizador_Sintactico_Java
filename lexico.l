@@ -7,7 +7,7 @@
 	char *yyval;
 	#include <stdio.h>
 	#include <stdlib.h>
-	#include "y.tab.h"	
+	#include "sintactico.tab.h"	
 	
 %}
 
@@ -78,6 +78,7 @@ types ("int"|"String"|"double")
 \t			;
 \r			;
 [ ]			;
+\n			yylineno++;
 ({noSymbol}|^)+({variable}|{entero})                             {yyval="ERROR";return ERROR;};
 ({variable}|{entero})({noSymbol2})+({letra}|{DIGITO})*({noSymbol2})*         {yyval="ERROR";return ERROR;};
 .[.]* {yyval="ERROR";return ERROR;}

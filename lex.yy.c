@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 55
-#define YY_END_OF_BUFFER 56
+#define YY_NUM_RULES 56
+#define YY_END_OF_BUFFER 57
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -362,23 +362,23 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[172] =
     {   0,
-        0,    0,   56,   54,   49,   55,   50,   51,   48,   54,
-       20,   54,   31,   32,   15,   16,   30,   17,   18,   35,
-       29,   44,   19,   43,   38,   38,   33,   34,   54,   38,
+        0,    0,   57,   55,   49,   52,   50,   51,   48,   55,
+       20,   55,   31,   32,   15,   16,   30,   17,   18,   35,
+       29,   44,   19,   43,   38,   38,   33,   34,   55,   38,
        38,   38,   38,   38,   38,   38,   38,   38,   38,   27,
-       54,   28,    0,    0,   54,   52,   52,    0,   54,   45,
-        0,    0,   37,    0,   54,   52,   52,    0,   46,   25,
-       21,   23,   22,   35,   24,    0,    1,   26,   53,   53,
-       35,   52,   53,   40,   42,   39,   41,   53,   38,   38,
+       55,   28,    0,    0,   55,   53,   53,    0,   55,   45,
+        0,    0,   37,    0,   55,   53,   53,    0,   46,   25,
+       21,   23,   22,   35,   24,    0,    1,   26,   54,   54,
+       35,   53,   54,   40,   42,   39,   41,   54,   38,   38,
        38,   38,   38,   38,   38,   38,    2,   38,   38,   38,
-       38,   38,   38,   47,   52,   52,   52,    0,   37,    0,
+       38,   38,   38,   47,   53,   53,   53,    0,   37,    0,
 
-       52,   52,   52,   53,   53,   35,    0,    0,    0,    1,
-       53,   52,   52,   53,   53,   36,   53,   35,   52,   52,
+       53,   53,   53,   54,   54,   35,    0,    0,    0,    1,
+       54,   53,   53,   54,   54,   36,   54,   35,   53,   53,
        38,   38,   38,   38,   38,   38,   38,   38,   38,    4,
-        7,    9,   38,   38,   38,   38,   53,   53,   36,   53,
-       35,    0,    0,    1,   52,   38,   14,   38,   38,    3,
-       38,   38,   13,   38,   53,    1,    0,    0,   38,   11,
+        7,    9,   38,   38,   38,   38,   54,   54,   36,   54,
+       35,    0,    0,    1,   53,   38,   14,   38,   38,    3,
+       38,   38,   13,   38,   54,    1,    0,    0,   38,   11,
        38,   38,   38,    5,   36,   36,    8,    6,   10,   12,
         0
     } ;
@@ -653,7 +653,7 @@ char *yytext;
 	char *yyval;
 	#include <stdio.h>
 	#include <stdlib.h>
-	#include "y.tab.h"	
+	#include "sintactico.tab.h"	
 	
 #line 659 "lex.yy.c"
 #line 660 "lex.yy.c"
@@ -1197,9 +1197,10 @@ YY_RULE_SETUP
 ;
 	YY_BREAK
 case 52:
+/* rule 52 can match eol */
 YY_RULE_SETUP
 #line 82 "lexico.l"
-{yyval="ERROR";return ERROR;};
+yylineno++;
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
@@ -1209,14 +1210,19 @@ YY_RULE_SETUP
 case 54:
 YY_RULE_SETUP
 #line 84 "lexico.l"
-{yyval="ERROR";return ERROR;}
+{yyval="ERROR";return ERROR;};
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 86 "lexico.l"
+#line 85 "lexico.l"
+{yyval="ERROR";return ERROR;}
+	YY_BREAK
+case 56:
+YY_RULE_SETUP
+#line 87 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 1220 "lex.yy.c"
+#line 1226 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2221,7 +2227,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 86 "lexico.l"
+#line 87 "lexico.l"
 
 int yywrap(){
 	return 1;

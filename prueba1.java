@@ -1,0 +1,9 @@
+public class Anything{
+    public static void main (String[] args){
+        float x==2.4;
+        int yy=0;
+        float lo;
+        int j,m;
+        j=2*y++5;
+    }
+}

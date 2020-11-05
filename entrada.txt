@@ -1,1 +1,5 @@
-i=1;
+int AnyThing;
+int Anying = 1;
+int Anying = 1+1;
+public class AnyThing {};
+public class;
