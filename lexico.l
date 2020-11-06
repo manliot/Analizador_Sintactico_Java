@@ -16,8 +16,8 @@ NUMERO {DIGITO}+("."{DIGITO}+)?
 letra [a-zA-Z]
 variable ({letra})({letra}|{DIGITO})* 
 entero "-"?({DIGITO})+ 
-noSymbol2 [^\n*/\-+=%{}\[\];()><!|& \t\r]
-noSymbol [^*/\-+=%{}\[\];()><!|& \n\t\r]
+noSymbol2 [^\n*/\-+=%{}\[\];,()><!|& \t\r]
+noSymbol [^*/\-+=%{}\[\];,()><!|& \n\t\r]
 types ("int"|"String"|"double")
 %%
 
@@ -27,7 +27,7 @@ types ("int"|"String"|"double")
  **********************/
 
 
-("//".*|"/*".*[\n]*.*"*/")          {yyval="COMENTARIO";return COMENTARIO;}
+("//".*|"/*"(.*[\n]*)*"*/")          {yyval="COMENTARIO";printf("COMENTARIO----\n");return COMENTARIO;}
 "if"              {yyval="IF";return IF;}
 "else"            {yyval="ELSE";return ELSE;}
 "for"    	  {yyval="FOR";return FOR;}                                       
@@ -41,6 +41,7 @@ types ("int"|"String"|"double")
 "static" 	  {yyval="STATIC";return STATIC;}
 "void"   	  {yyval="VOID";return VOID;}
 "char"  	  {yyval="CHAR";return CHAR;}
+","		  {yyval="COMA";return COMA;}
 "*"    	      {yyval="OP_MULT";return OP_MULT;}
 "+"     	  {yyval="OP_SUM";return OP_SUM;}
 "-"     	  {yyval="OP_SUST";return OP_SUST;}
@@ -56,7 +57,6 @@ types ("int"|"String"|"double")
 "{"		  {yyval="LLAVE_A";return LLAVE_A;}
 "}"		  {yyval="LLAVE_C";return LLAVE_C;}
 ";"		  {yyval="PUNTOYCOM";return PUNTOYCOM;}
-","		  {yyval="COMA";return COMA;}
 "("		  {yyval="PARENT_A";return PARENT_A;}
 ")"		  {yyval="PARET_C";return PARENT_C;}
 "["		  {yyval="CORCHET_A";return CORCHET_A;}
@@ -79,9 +79,9 @@ types ("int"|"String"|"double")
 \r			;
 [ ]			;
 \n			yylineno++;
-({noSymbol}|^)+({variable}|{entero})                             {yyval="ERROR";return ERROR;};
-({variable}|{entero})({noSymbol2})+({letra}|{DIGITO})*({noSymbol2})*         {yyval="ERROR";return ERROR;};
-.[.]* {yyval="ERROR";return ERROR;}
+({noSymbol}|^)+({variable}|{entero})({noSymbol2})*                           {yyval="ERROR"; printf("Erro lexico tipo 1");return ERROR;};
+({variable}|{entero})({noSymbol2})+({letra}|{DIGITO})*({noSymbol2})*         {yyval="ERROR";printf("Erro lexico tipo 2");return ERROR;};
+.[.]* {yyval="ERROR";printf("Erro lexico Simbolo no definido");return ERROR;}
 
 %%
 int yywrap(){
