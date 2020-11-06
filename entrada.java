@@ -15,7 +15,7 @@ public class Anything{
         x="Hola mis amigos";
         //int x = 2 + 2;
         if(i && j==1){
-            String popo;
+            String profesional;
         }
     }
 }
