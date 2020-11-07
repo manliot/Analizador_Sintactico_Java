@@ -17,8 +17,7 @@ public class Anything{
                     String profesional; 
                 }
             }else
-                String profesional;
-            
+                String profesional;            
         }
         while(i==1){
             String a= "hola terricola";
