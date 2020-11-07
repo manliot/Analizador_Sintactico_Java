@@ -7,7 +7,9 @@
 	char *yyval;
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include <string.h>
 	#include "sintactico.tab.h"	
+	char* substring(char*, int, int);
 	
 %}
 
@@ -27,7 +29,24 @@ types ("int"|"String"|"double")
  **********************/
 
 
-("//".*|"/*"(.*[\n]*)*"*/")          {yyval="COMENTARIO";printf("COMENTARIO----\n");return COMENTARIO;}
+("//".*|"/*"(.*[\n]*)*"*/")          {
+										int longi=strlen(yytext);
+										int i=1;
+										char *p;
+										while(i<=longi)
+										{
+											p=substring(yytext, i, 1);										
+											if(strcmp(p, "\n") == 0 ){
+												yylineno++;
+											}
+											/* printf("->%s<-\n",p);	  */
+											i=i+1;
+										}										
+										
+																													
+										yyval="COMENTARIO";									
+									}
+
 "if"              {yyval="IF";return IF;}
 "else"            {yyval="ELSE";return ELSE;}
 "for"    	  {yyval="FOR";return FOR;}                                       
@@ -88,6 +107,29 @@ int yywrap(){
 	return 1;
 }
 
+char *substring(char *string, int position, int length)
+{
+   char *p;
+   int c;
+ 
+   p = malloc(length+1);
+   
+   if (p == NULL)
+   {
+      printf("Unable to allocate memory.\n");
+      exit(1);
+   }
+ 
+   for (c = 0; c < length; c++)
+   {
+      *(p+c) = *(string+position-1);      
+      string++;  
+   }
+ 
+   *(p+c) = '\0';
+ 
+   return p;
+}
 /*********************
  * Codigo de Usuario *
  {NUMERO} {yyval.real=atof(yytext); return(NUMERO);}

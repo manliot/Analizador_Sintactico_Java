@@ -641,10 +641,12 @@ char *yytext;
 	char *yyval;
 	#include <stdio.h>
 	#include <stdlib.h>
+	#include <string.h>
 	#include "sintactico.tab.h"	
+	char* substring(char*, int, int);
 	
-#line 647 "lex.yy.c"
-#line 648 "lex.yy.c"
+#line 649 "lex.yy.c"
+#line 650 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -861,17 +863,17 @@ YY_DECL
 		}
 
 	{
-#line 22 "lexico.l"
+#line 24 "lexico.l"
 
 
 
-#line 26 "lexico.l"
+#line 28 "lexico.l"
  /*********************
   * Reglas y Acciones *
  **********************/
 
 
-#line 875 "lex.yy.c"
+#line 877 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -931,286 +933,302 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 31 "lexico.l"
-{yyval="COMENTARIO";printf("COMENTARIO----\n");return COMENTARIO;}
+#line 33 "lexico.l"
+{
+										int longi=strlen(yytext);
+										int i=1;
+										char *p;
+										while(i<=longi)
+										{
+											p=substring(yytext, i, 1);										
+											if(strcmp(p, "\n") == 0 ){
+												yylineno++;
+											}
+											/* printf("->%s<-\n",p);	  */
+											i=i+1;
+										}										
+										
+																													
+										yyval="COMENTARIO";									
+									}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 32 "lexico.l"
+#line 51 "lexico.l"
 {yyval="IF";return IF;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 33 "lexico.l"
+#line 52 "lexico.l"
 {yyval="ELSE";return ELSE;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 34 "lexico.l"
+#line 53 "lexico.l"
 {yyval="FOR";return FOR;}                                       
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 35 "lexico.l"
+#line 54 "lexico.l"
 {yyval="WHILE";return WHILE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 36 "lexico.l"
+#line 55 "lexico.l"
 {yyval="DOUBLE";return DOUBLE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 37 "lexico.l"
+#line 56 "lexico.l"
 {yyval="INT";return INT;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 38 "lexico.l"
+#line 57 "lexico.l"
 {yyval="STRING";return STRING;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 39 "lexico.l"
+#line 58 "lexico.l"
 {yyval="NEW";return NEW;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 40 "lexico.l"
+#line 59 "lexico.l"
 {yyval="PUBLIC";return PUBLIC;}            
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 41 "lexico.l"
+#line 60 "lexico.l"
 {yyval="CLASS";return CLASS;}          
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 42 "lexico.l"
+#line 61 "lexico.l"
 {yyval="STATIC";return STATIC;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 43 "lexico.l"
+#line 62 "lexico.l"
 {yyval="VOID";return VOID;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 44 "lexico.l"
+#line 63 "lexico.l"
 {yyval="CHAR";return CHAR;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 45 "lexico.l"
+#line 64 "lexico.l"
 {yyval="COMA";return COMA;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 46 "lexico.l"
+#line 65 "lexico.l"
 {yyval="OP_MULT";return OP_MULT;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 47 "lexico.l"
+#line 66 "lexico.l"
 {yyval="OP_SUM";return OP_SUM;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 48 "lexico.l"
+#line 67 "lexico.l"
 {yyval="OP_SUST";return OP_SUST;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 49 "lexico.l"
+#line 68 "lexico.l"
 {yyval="OP_DIV";return OP_DIV;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 50 "lexico.l"
+#line 69 "lexico.l"
 {yyval="OP_ASIG";return OP_ASIG;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 51 "lexico.l"
+#line 70 "lexico.l"
 {yyval="OP_MOD";return OP_MOD;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 52 "lexico.l"
+#line 71 "lexico.l"
 {yyval="PLUSPLUS";return PLUSPLUS;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 53 "lexico.l"
+#line 72 "lexico.l"
 {yyval="MENMEN";return MENMEN;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 54 "lexico.l"
+#line 73 "lexico.l"
 {yyval="MASIGUA";return MASIGUA;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 55 "lexico.l"
+#line 74 "lexico.l"
 {yyval="MENOSIGUA";return MENOSIGUA;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 56 "lexico.l"
+#line 75 "lexico.l"
 {yyval="PORIGUA";return PORIGUA;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 57 "lexico.l"
+#line 76 "lexico.l"
 {yyval="DIVIGUA";return DIVIGUA;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 58 "lexico.l"
+#line 77 "lexico.l"
 {yyval="LLAVE_A";return LLAVE_A;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 59 "lexico.l"
+#line 78 "lexico.l"
 {yyval="LLAVE_C";return LLAVE_C;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 60 "lexico.l"
+#line 79 "lexico.l"
 {yyval="PUNTOYCOM";return PUNTOYCOM;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 61 "lexico.l"
+#line 80 "lexico.l"
 {yyval="PARENT_A";return PARENT_A;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 62 "lexico.l"
+#line 81 "lexico.l"
 {yyval="PARET_C";return PARENT_C;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 63 "lexico.l"
+#line 82 "lexico.l"
 {yyval="CORCHET_A";return CORCHET_A;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 64 "lexico.l"
+#line 83 "lexico.l"
 {yyval="CORCHET_C";return CORCHET_C;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 65 "lexico.l"
+#line 84 "lexico.l"
 {yyval="CTE_ENT";return CTE_ENT;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 66 "lexico.l"
+#line 85 "lexico.l"
 {yyval="CTE_REAL";return CTE_REAL;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 67 "lexico.l"
+#line 86 "lexico.l"
 {yyval="CTE_CAD";return CTE_CAD;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 68 "lexico.l"
+#line 87 "lexico.l"
 {yyval="ID";return ID;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 69 "lexico.l"
+#line 88 "lexico.l"
 {yyval="IGUAL";return OP_IGUAL;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 70 "lexico.l"
+#line 89 "lexico.l"
 {yyval="OP_MENIGUA";return OP_MENIGUA;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 71 "lexico.l"
+#line 90 "lexico.l"
 {yyval="OP_MAYIGUA";return OP_MAYIGUA;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 72 "lexico.l"
+#line 91 "lexico.l"
 {yyval="DIFERENTE";return DIFERENTE;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 73 "lexico.l"
+#line 92 "lexico.l"
 {yyval="MAYOR";return MAYOR;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 74 "lexico.l"
+#line 93 "lexico.l"
 {yyval="MENOR";return MENOR;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 75 "lexico.l"
+#line 94 "lexico.l"
 {yyval="DIFERENTE";return DIFERENTE;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 76 "lexico.l"
+#line 95 "lexico.l"
 {yyval="OP_Y";return OP_Y;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 77 "lexico.l"
+#line 96 "lexico.l"
 {yyval="OP_O";return OP_O;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 78 "lexico.l"
+#line 97 "lexico.l"
 {yyval="OP_NO";return OP_NO;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 79 "lexico.l"
+#line 98 "lexico.l"
 ;
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 80 "lexico.l"
+#line 99 "lexico.l"
 ;
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 81 "lexico.l"
+#line 100 "lexico.l"
 ;
 	YY_BREAK
 case 52:
 /* rule 52 can match eol */
 YY_RULE_SETUP
-#line 82 "lexico.l"
+#line 101 "lexico.l"
 yylineno++;
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 83 "lexico.l"
+#line 102 "lexico.l"
 {yyval="ERROR"; printf("Erro lexico tipo 1");return ERROR;};
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 84 "lexico.l"
+#line 103 "lexico.l"
 {yyval="ERROR";printf("Erro lexico tipo 2");return ERROR;};
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 85 "lexico.l"
+#line 104 "lexico.l"
 {yyval="ERROR";printf("Erro lexico Simbolo no definido");return ERROR;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 87 "lexico.l"
+#line 106 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 1214 "lex.yy.c"
+#line 1232 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2215,12 +2233,35 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 87 "lexico.l"
+#line 106 "lexico.l"
 
 int yywrap(){
 	return 1;
 }
 
+char *substring(char *string, int position, int length)
+{
+   char *p;
+   int c;
+ 
+   p = malloc(length+1);
+   
+   if (p == NULL)
+   {
+      printf("Unable to allocate memory.\n");
+      exit(1);
+   }
+ 
+   for (c = 0; c < length; c++)
+   {
+      *(p+c) = *(string+position-1);      
+      string++;  
+   }
+ 
+   *(p+c) = '\0';
+ 
+   return p;
+}
 /*********************
  * Codigo de Usuario *
  {NUMERO} {yyval.real=atof(yytext); return(NUMERO);}
