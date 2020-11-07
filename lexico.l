@@ -15,9 +15,9 @@ DIGITO [0-9]
 NUMERO {DIGITO}+("."{DIGITO}+)?
 letra [a-zA-Z]
 variable ({letra})({letra}|{DIGITO})* 
-entero "-"?({DIGITO})+ 
-noSymbol2 [^\n*/\-+=%{}\[\];,()><!|& \t\r]
-noSymbol [^*/\-+=%{}\[\];,()><!|& \n\t\r]
+entero ({DIGITO})+ 
+noSymbol2 [^-\n*/\+=%{}\[\];,()><!|& \t\r]
+noSymbol [^*-/\-+=%{}\[\];,()><!|& \n\t\r]
 types ("int"|"String"|"double")
 %%
 
@@ -62,7 +62,7 @@ types ("int"|"String"|"double")
 "["		  {yyval="CORCHET_A";return CORCHET_A;}
 "]"		  {yyval="CORCHET_C";return CORCHET_C;}
 {entero}                                         {yyval="CTE_ENT";return CTE_ENT;}
-"-"?({DIGITO})+"."({DIGITO})+(e([-|+])[1-9]+)?   {yyval="CTE_REAL";return CTE_REAL;}
+({DIGITO})+"."({DIGITO})+(e([-|+])[1-9]+)?   {yyval="CTE_REAL";return CTE_REAL;}
 ("\"")([^\n\"]*([.])*)*("\"")                    {yyval="CTE_CAD";return CTE_CAD;}
 {variable}                                       {yyval="ID";return ID;}
 "=="		  {yyval="IGUAL";return OP_IGUAL;}
