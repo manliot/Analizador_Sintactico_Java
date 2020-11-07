@@ -9,6 +9,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include "sintactico.tab.h"	
+	FILE* fichero;
 	char* substring(char*, int, int);
 	
 %}
@@ -41,9 +42,7 @@ types ("int"|"String"|"double")
 											}
 											/* printf("->%s<-\n",p);	  */
 											i=i+1;
-										}										
-										
-																													
+										}																			
 										yyval="COMENTARIO";									
 									}
 
@@ -110,24 +109,17 @@ int yywrap(){
 char *substring(char *string, int position, int length)
 {
    char *p;
-   int c;
- 
-   p = malloc(length+1);
-   
-   if (p == NULL)
-   {
+   int c; 
+   p = malloc(length+1);   
+   if (p == NULL){
       printf("Unable to allocate memory.\n");
       exit(1);
-   }
- 
-   for (c = 0; c < length; c++)
-   {
+   } 
+   for (c = 0; c < length; c++){
       *(p+c) = *(string+position-1);      
       string++;  
-   }
- 
-   *(p+c) = '\0';
- 
+   } 
+   *(p+c) = '\0'; 
    return p;
 }
 /*********************

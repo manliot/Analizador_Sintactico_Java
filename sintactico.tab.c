@@ -81,9 +81,15 @@
   extern char *yytext;
   extern int yylineno;
   void yyerror(char *s);
+  int linerr [1000];
+  int c;
+  int check;
+  FILE* fichero;
+  void yyerror(char *s);
+  
   
 
-#line 87 "sintactico.tab.c"
+#line 93 "sintactico.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -569,16 +575,16 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    77,    77,    79,    81,    82,    85,    87,    88,    90,
-      94,    95,    97,    98,    99,   100,   102,   103,   105,   107,
-     108,   109,   110,   112,   113,   115,   117,   118,   119,   120,
-     121,   122,   123,   124,   125,   127,   129,   130,   131,   132,
-     133,   136,   137,   138,   139,   140,   141,   142,   143,   144,
-     145,   146,   147,   150,   151,   152,   153,   161,   161,   162,
-     163,   164,   164,   165,   165,   165,   166,   166,   166,   166,
-     168,   168,   168,   168,   168,   169,   169,   169,   169,   169,
-     170,   170,   171,   171,   171,   171,   171,   171,   172,   172,
-     172
+       0,    83,    83,    85,    87,    88,    91,    93,    94,    96,
+     100,   101,   103,   104,   105,   106,   108,   109,   111,   113,
+     114,   115,   116,   118,   119,   121,   123,   124,   125,   126,
+     127,   128,   129,   130,   131,   133,   135,   136,   137,   138,
+     139,   142,   143,   144,   145,   146,   147,   148,   149,   150,
+     151,   152,   154,   157,   158,   159,   160,   168,   168,   169,
+     170,   171,   171,   172,   172,   172,   173,   173,   173,   173,
+     175,   175,   175,   175,   175,   176,   176,   176,   176,   176,
+     177,   177,   178,   178,   178,   178,   178,   178,   179,   179,
+     179
 };
 #endif
 
@@ -1297,7 +1303,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1301 "sintactico.tab.c"
+#line 1307 "sintactico.tab.c"
 
       default: break;
     }
@@ -1491,19 +1497,44 @@ yyreturn:
   return yyresult;
 }
 
-#line 173 "sintactico.y"
+#line 180 "sintactico.y"
 
 
 void yyerror(char *s)
 {
+       /*  for(int i =0; i<10000;i++){
+		if (yylineno==linErr[i]){
+			check = 1;
+			break;
+		}
+	} */
+	/* if(check==1){
+		check=0;
+	} */
+	/* else{
+		linErr[c]=yylineno;
+		printf("Error sintactico en linea %d \n", yylineno);
+		fprintf(fichero,"Error sintactico en linea %d \n", yylineno);
+		c++;
+	} */
+	/* printf("Error sintactico en linea %d \n", yylineno); */
+	fprintf(fichero,"[linea %d]: Error sintactico en linea. \n", yylineno);	
+	
+	
 	printf("\tError sintactico [linea %d]  \n", yylineno);
 }
 
-int main()
-{
-  if (yyparse()==1){
+int main(){
+        fichero = fopen("salida.txt", "w");
+	/* if (yyparse()==1){
 		printf("Clean code \n");
-	}	
+	}
+	if (c<1){
+		fprintf(fichero,"Codigo limpio");
+	}
+	 */	
+        fprintf(fichero,"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n░░░░░░░▄▄▀▀▀▀▀▀▀▀▀▀▄▄█▄░░░░▄░░░░█░░░░░░░\n░░░░░░█▀░░░░░░░░░░░░░▀▀█▄░░░▀░░░░░░░░░▄░\n░░░░▄▀░░░░░░░░░░░░░░░░░▀██░░░▄▀▀▀▄▄░░▀░░\n░░▄█▀▄█▀▀▀▀▄░░░░░░▄▀▀█▄░▀█▄░░█▄░░░▀█░░░░\n░▄█░▄▀░░▄▄▄░█░░░▄▀▄█▄░▀█░░█▄░░▀█░░░░█░░░\n▄█░░█░░░▀▀▀░█░░▄█░▀▀▀░░█░░░█▄░░█░░░░█░░░\n██░░░▀▄░░░▄█▀░░░▀▄▄▄▄▄█▀░░░▀█░░█▄░░░█░░░\n██░░░░░▀▀▀░░░░░░░░░░░░░░░░░░█░▄█░░░░█░░░\n██░░░░░░░░░░░░░░░░░░░░░█░░░░██▀░░░░█▄░░░\n██░░░░░░░░░░░░░░░░░░░░░█░░░░█░░░░░░░▀▀█▄\n██░░░░░░░░░░░░░░░░░░░░█░░░░░█░░░░░░░▄▄██\n░██░░░░░░░░░░░░░░░░░░▄▀░░░░░█░░░░░░░▀▀█▄\n░▀█░░░░░░█░░░░░░░░░▄█▀░░░░░░█░░░░░░░▄▄██\n░▄██▄░░░░░▀▀▀▄▄▄▄▀▀░░░░░░░░░█░░░░░░░▀▀█▄\n░░▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░█▄▄▄▄▄▄▄▄▄██\n░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n░░░░░Bien, no hay errores sintactico░░░░");
+	fclose(fichero);
 	
 }
 /*
@@ -1511,42 +1542,10 @@ int main()
 **********VERIFICAR CONDICIONALES 
 ***********CAPTACION DE ERRORES
 
-
-locura: ID CORCHET_A CORCHET_C
-*/
-/*
-int matriz[][], i,j;
-int matriz[][]= new , i,j;
-int matriz[][] = new int[3][3];
-int [][] matriz = {{2,4,4},{6,6,9},{8,10,12}};
-int [][] ventas = new int[4][6];
-
-MATRIZ: TIPO_VAR ID CORCHET_A CORCHET_C CORCHET_A CORCHET_C OPS_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C CORCHET_A CORCHET_C ;
-
-
 */
 
-/*
-NOTAS:
-
-
-
-void yyerror(char *s)
-{
-	printf("\tError sintactico [linea %d]  \n", yylineno);
-}
-
-int main()
-{
-  if (yyparse()==1){
-		printf("Clean code \n");
-	}	
-	
-}
-/*
 
 
 
 
-*/
 

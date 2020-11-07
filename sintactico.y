@@ -11,6 +11,12 @@
   extern char *yytext;
   extern int yylineno;
   void yyerror(char *s);
+  int linerr [1000];
+  int c;
+  int check;
+  FILE* fichero;
+  void yyerror(char *s);
+  
   
 %}
 
@@ -143,7 +149,8 @@ INS: DECLARACION PUNTOYCOM
     |ASIGNACION PUNTOYCOM
     |error PUNTOYCOM
     |error "\n"
-    |error "\r"
+    |error "\r"    
+   /*  |error {yyerrok ; yycleari;} */
     | PARENT_A error PARENT_C
     ;
 
@@ -174,14 +181,39 @@ OPERADORES_LOGICOS: OP_Y| OP_O| OP_NO;
 
 void yyerror(char *s)
 {
+       /*  for(int i =0; i<10000;i++){
+		if (yylineno==linErr[i]){
+			check = 1;
+			break;
+		}
+	} */
+	/* if(check==1){
+		check=0;
+	} */
+	/* else{
+		linErr[c]=yylineno;
+		printf("Error sintactico en linea %d \n", yylineno);
+		fprintf(fichero,"Error sintactico en linea %d \n", yylineno);
+		c++;
+	} */
+	/* printf("Error sintactico en linea %d \n", yylineno); */
+	fprintf(fichero,"[linea %d]: Error sintactico en linea. \n", yylineno);	
+	
+	
 	printf("\tError sintactico [linea %d]  \n", yylineno);
 }
 
-int main()
-{
-  if (yyparse()==1){
+int main(){
+        fichero = fopen("salida.txt", "w");
+	/* if (yyparse()==1){
 		printf("Clean code \n");
-	}	
+	}
+	if (c<1){
+		fprintf(fichero,"Codigo limpio");
+	}
+	 */	
+        fprintf(fichero,"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n░░░░░░░▄▄▀▀▀▀▀▀▀▀▀▀▄▄█▄░░░░▄░░░░█░░░░░░░\n░░░░░░█▀░░░░░░░░░░░░░▀▀█▄░░░▀░░░░░░░░░▄░\n░░░░▄▀░░░░░░░░░░░░░░░░░▀██░░░▄▀▀▀▄▄░░▀░░\n░░▄█▀▄█▀▀▀▀▄░░░░░░▄▀▀█▄░▀█▄░░█▄░░░▀█░░░░\n░▄█░▄▀░░▄▄▄░█░░░▄▀▄█▄░▀█░░█▄░░▀█░░░░█░░░\n▄█░░█░░░▀▀▀░█░░▄█░▀▀▀░░█░░░█▄░░█░░░░█░░░\n██░░░▀▄░░░▄█▀░░░▀▄▄▄▄▄█▀░░░▀█░░█▄░░░█░░░\n██░░░░░▀▀▀░░░░░░░░░░░░░░░░░░█░▄█░░░░█░░░\n██░░░░░░░░░░░░░░░░░░░░░█░░░░██▀░░░░█▄░░░\n██░░░░░░░░░░░░░░░░░░░░░█░░░░█░░░░░░░▀▀█▄\n██░░░░░░░░░░░░░░░░░░░░█░░░░░█░░░░░░░▄▄██\n░██░░░░░░░░░░░░░░░░░░▄▀░░░░░█░░░░░░░▀▀█▄\n░▀█░░░░░░█░░░░░░░░░▄█▀░░░░░░█░░░░░░░▄▄██\n░▄██▄░░░░░▀▀▀▄▄▄▄▀▀░░░░░░░░░█░░░░░░░▀▀█▄\n░░▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░█▄▄▄▄▄▄▄▄▄██\n░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n░░░░░Bien, no hay errores sintactico░░░░");
+	fclose(fichero);
 	
 }
 /*
@@ -189,42 +221,10 @@ int main()
 **********VERIFICAR CONDICIONALES 
 ***********CAPTACION DE ERRORES
 
-
-locura: ID CORCHET_A CORCHET_C
-*/
-/*
-int matriz[][], i,j;
-int matriz[][]= new , i,j;
-int matriz[][] = new int[3][3];
-int [][] matriz = {{2,4,4},{6,6,9},{8,10,12}};
-int [][] ventas = new int[4][6];
-
-MATRIZ: TIPO_VAR ID CORCHET_A CORCHET_C CORCHET_A CORCHET_C OPS_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C CORCHET_A CORCHET_C ;
-
-
 */
 
-/*
-NOTAS:
-
-
-
-void yyerror(char *s)
-{
-	printf("\tError sintactico [linea %d]  \n", yylineno);
-}
-
-int main()
-{
-  if (yyparse()==1){
-		printf("Clean code \n");
-	}	
-	
-}
-/*
 
 
 
 
-*/
 

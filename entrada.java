@@ -1,11 +1,11 @@
 public class Anything{
     public static void main (String[] args){
         /*h
-        int matriz[][] = {{2,4,4},{6,6,9},{8,10,12}};
+        int matriz[1][] = {{2,4,4},{6,6,9},{8,10,12}};
         int matriz[][] = new int [][];
         hola esto es un come
         tario */
-        int j>=1;
+        int j=="ljslkjs";
         if(i && j>=1){
             String profesional;
         }else{
