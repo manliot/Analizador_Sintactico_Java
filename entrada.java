@@ -25,6 +25,14 @@ public class Anything{
         x=x;
         x="Hola mis amigos";
         //int x = 2 + 2;    
+        int yx;
+        int y;
+        int x;
+        float x=1.3;
+        float x=1.3;
+        x=x;
+        x="Hola mis amigos";
+        //int x = 2 + 2;    
     }
 }
 
