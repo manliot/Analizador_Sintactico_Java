@@ -101,7 +101,8 @@ extern int yydebug;
     OP_NO = 302,                   /* OP_NO  */
     CHAR = 303,                    /* CHAR  */
     COMENTARIO = 304,              /* COMENTARIO  */
-    ERROR = 305                    /* ERROR  */
+    ERROR = 305,                   /* ERROR  */
+    NEWLINE = 306                  /* NEWLINE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

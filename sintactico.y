@@ -72,7 +72,9 @@
 %token OP_NO      
 %token CHAR       
 %token COMENTARIO 
-%token ERROR      
+%token ERROR  
+%token NEWLINE    
+
 
 
 %%
@@ -83,6 +85,7 @@
 INICIO: PUBLIC CLASS ID LLAVE_A F_MAIN LLAVE_C;  
 
 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C;
+        
 
 CYCL_FOR:  FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C 
           |FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C 
@@ -140,19 +143,20 @@ ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCH
                          ;
 
 INSTRUCCIONES: INSTRUCCIONES INS;
-         | INS;
+         | INS
+         ;
+         
 INS: DECLARACION PUNTOYCOM
     |CYCL_FOR
     |COND_IF
     |CYCL_WHILE
     |COMENTARIO
     |ASIGNACION PUNTOYCOM
-    |error PUNTOYCOM
-    |error "\n"
-    |error "\r"    
-   /*  |error {yyerrok ; yycleari;} */
-    | PARENT_A error PARENT_C
-    ;
+    |error PUNTOYCOM {yyerrok ; yyclearin ;}
+  ;
+    
+    
+    
 
 OPERACION_MATH_PAREN:   PARENT_A OPERACION_MATH_PAREN PARENT_C
                         |CONSTANTES_NUM_ID OPERADORES_MATH OPERACION_MATH_PAREN
@@ -160,10 +164,6 @@ OPERACION_MATH_PAREN:   PARENT_A OPERACION_MATH_PAREN PARENT_C
                         |CONSTANTES_NUM_ID;
 
 
-/* OPERACION_MATH: CONSTANTES_NUM_ID
-               |CONSTANTES_NUM_ID OPERADORES_MATH OPERACION_MATH
-               |PARENT_A OPERACION_MATH PARENT_C
-               ; */
 
 DIMENSION: CTE_ENT| ID;
 CONSTANTES_NUM_ID: CONSTANTES_NUM
@@ -201,8 +201,8 @@ void yyerror(char *s)
 	 fprintf(fichero,"[linea %d]: Error sintactico en linea. \n", yylineno);	
 	
 	
-	/*
-        printf("\tError sintactico [linea %d]  \n", yylineno); */
+	
+        printf("\tError sintactico [linea %d]  \n", yylineno); 
 }
 
 int main(){
@@ -218,14 +218,6 @@ int main(){
 	
 }
 /*
-
 **********VERIFICAR CONDICIONALES 
 ***********CAPTACION DE ERRORES
-
 */
-
-
-
-
-
-

@@ -1205,7 +1205,7 @@ case 52:
 /* rule 52 can match eol */
 YY_RULE_SETUP
 #line 100 "lexico.l"
-yylineno++;
+{yylineno++;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP

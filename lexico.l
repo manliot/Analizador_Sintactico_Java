@@ -96,7 +96,7 @@ types ("int"|"String"|"double")
 \t			;
 \r			;
 [ ]			;
-\n			yylineno++;
+\n			{yylineno++;}
 ({noSymbol}|^)+({variable}|{entero})({noSymbol2})*                           {yyval="ERROR"; printf("Erro lexico tipo 1");return ERROR;};
 ({variable}|{entero})({noSymbol2})+({letra}|{DIGITO})*({noSymbol2})*         {yyval="ERROR";printf("Erro lexico tipo 2");return ERROR;};
 .[.]* {yyval="ERROR";printf("Erro lexico Simbolo no definido");return ERROR;}

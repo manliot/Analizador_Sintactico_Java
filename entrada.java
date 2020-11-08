@@ -5,8 +5,9 @@ public class Anything{
         int matriz[][] = new int [][];
         hola esto es un come
         tario */
-        int j=="ljslkjs";
-        if(i && j>=1){
+        int j>=((1+(1)));
+        int j="ljslkjs";
+        if(i==0){
             String profesional;
         }else{
             String profesional;
@@ -32,7 +33,7 @@ public class Anything{
         int y=1,x=2;
         int yx;
         int y;
-        int x;
+        int x
         float x=1.3;
         float x=1.3;
         x=x;
