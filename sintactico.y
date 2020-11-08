@@ -164,9 +164,15 @@ INS: DECLARACION PUNTOYCOM
     |CYCL_WHILE
     |COMENTARIO
     |ASIGNACION PUNTOYCOM   
+    |INS_SIN_PUNTOCOMA INS {
+                                        yyerrok ; yyclearin ;
+                                        fprintf(fichero,"[linea %d]: Error sintactico en linea. \n", yylineno-1);	
+                                         }
+                                   
     |error INS  {yyerrok ; yyclearin ;}
     |error PUNTOYCOM {yyerrok ; yyclearin ; } /* normalmente cuando se encuentra un error ocaciona una avalancha de errores por lo tanto el vaino ese no muestra errores cuando son varios seguidos, con yyerrok se obliga que muestre todos los mensajes  */
   ;
+INS_SIN_PUNTOCOMA: DECLARACION |ASIGNACION;  
   
     
     
@@ -216,7 +222,7 @@ void yyerror(char *s)
 	
 	
 	
-        printf("\tError sintactico [linea %d] %s \n", yylineno,yytext); 
+      /*   printf("\tError sintactico [linea %d] %s \n", yylineno,yytext);  */
 }
 
 int main(){

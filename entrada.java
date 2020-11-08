@@ -6,7 +6,7 @@ public class Anything{
         int matriz[][] = new int [][];
         hola esto es un come
         tario */
-        int j=((1+(1)));
+        int j=((1+(1)))
         int j="ljslkjs";
         if(i==0){
             String profesional;
@@ -32,7 +32,7 @@ public class Anything{
         int y=((1+2+(123+3))+(1+1))+(2-3);
         int y, x;
         int y=1,x=2;
-        int yx;
+        int yx
         int y;
         int x;
         float x=1.3;
