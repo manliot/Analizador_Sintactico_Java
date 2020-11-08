@@ -1210,17 +1210,17 @@ YY_RULE_SETUP
 case 53:
 YY_RULE_SETUP
 #line 101 "lexico.l"
-{yyval="ERROR"; printf("Erro lexico tipo 1");return ERROR;};
+{yyval="ERROR";/*  printf("Erro lexico tipo 1");return ERROR; */};
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 102 "lexico.l"
-{yyval="ERROR";printf("Erro lexico tipo 2");return ERROR;};
+{yyval="ERROR";/* printf("Erro lexico tipo 2");return ERROR; */};
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 103 "lexico.l"
-{yyval="ERROR";printf("Erro lexico Simbolo no definido");return ERROR;}
+{yyval="ERROR";/* printf("Erro lexico Simbolo no definido");return ERROR; */}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP

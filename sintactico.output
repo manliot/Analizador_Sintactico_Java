@@ -1,0 +1,2479 @@
+Terminales no usados en la gramática
+
+    ERROR
+    NEWLINE
+
+
+Gramática
+
+    0 $accept: INICIO $end
+
+    1 INICIO: PUBLIC CLASS ID LLAVE_A F_MAIN LLAVE_C
+    2       | error LLAVE_A F_MAIN LLAVE_C
+    3       | error F_MAIN LLAVE_C
+    4       | error LLAVE_A F_MAIN
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+    6       | error LLAVE_A INSTRUCCIONES LLAVE_C
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+    8         | FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+    9         | FOR PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+   10 CYCL_WHILE: WHILE PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+   11           | WHILE PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+   12 COND_IF: IF_SOLO
+   13        | IF_SOLO C_ELSE
+
+   14 IF_SOLO: IF PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+   15        | error LLAVE_A INSTRUCCIONES LLAVE_C
+
+   16 C_ELSE: ELSE LLAVE_A INSTRUCCIONES LLAVE_C
+   17       | ELSE INS
+
+   18 NOM_ARRAY: ID CORCHET_A CORCHET_C CORCHET_A CORCHET_C
+   19          | ID CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   20          | ID CORCHET_A CORCHET_C
+   21          | ID CORCHET_A DIMENSION CORCHET_C
+
+   22 COLUMNAS: COLUMNA COMA COLUMNAS
+   23         | COLUMNA
+
+   24 COLUMNA: LLAVE_A FILA LLAVE_C
+
+   25 FILA: CONSTANTES COMA FILA
+   26     | CONSTANTES
+
+   27 CONDICIONALES: CONDICIONAL OPERADORES_LOGICOS CONDICIONALES
+   28              | CONDICIONAL
+   29              | PARENT_A error PARENT_C
+
+   30 CONDICIONAL: OPERACION_MATH_PAREN OPERADORES_REL OPERACION_MATH_PAREN
+   31            | ID
+
+   32 DECLARACION: TIPO_VAR DECL_VARIABLES
+
+   33 DECL_VARIABLES: DECL_VARIABLE COMA DECL_VARIABLES
+   34               | DECL_VARIABLE
+
+   35 DECL_VARIABLE: ASIGNACION
+   36              | ID
+   37              | NOM_ARRAY
+   38              | ASIGNACION_ARRAY
+
+   39 ASIGNACION: ID ASIG_SYMBOLS OPERACION_MATH_PAREN
+   40           | ID OP_ASIG CTE_CAD
+   41           | ID INCREMENTO_SYMBOLS
+
+   42 ASIGNACION_ARRAY: NOM_ARRAY ASIGNACION_ARRAY_RIGHT
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   44                       | OP_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C CORCHET_A CORCHET_C
+   45                       | OP_ASIG LLAVE_A COLUMNAS LLAVE_C
+   46                       | OP_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C
+   47                       | OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C
+
+   48 INSTRUCCIONES: INSTRUCCIONES INS
+   49              | INS
+
+   50 INS: DECLARACION PUNTOYCOM
+   51    | CYCL_FOR
+   52    | COND_IF
+   53    | CYCL_WHILE
+   54    | COMENTARIO
+   55    | ASIGNACION PUNTOYCOM
+   56    | error INS
+   57    | error PUNTOYCOM
+
+   58 OPERACION_MATH_PAREN: PARENT_A OPERACION_MATH_PAREN PARENT_C
+   59                     | CONSTANTES_NUM_ID OPERADORES_MATH OPERACION_MATH_PAREN
+   60                     | PARENT_A OPERACION_MATH_PAREN PARENT_C OPERADORES_MATH OPERACION_MATH_PAREN
+   61                     | CONSTANTES_NUM_ID
+
+   62 DIMENSION: CTE_ENT
+   63          | ID
+
+   64 CONSTANTES_NUM_ID: CONSTANTES_NUM
+   65                  | ID
+
+   66 CONSTANTES_NUM: CTE_ENT
+   67               | CTE_REAL
+
+   68 CONSTANTES: CTE_ENT
+   69           | CTE_REAL
+   70           | CTE_CAD
+
+   71 TIPO_VAR: DOUBLE
+   72         | INT
+   73         | STRING
+   74         | CHAR
+
+   75 OPERADORES_MATH: OP_MULT
+   76                | OP_MOD
+   77                | OP_SUM
+   78                | OP_SUST
+   79                | OP_DIV
+
+   80 ASIG_SYMBOLS: MASIGUA
+   81             | MENOSIGUA
+   82             | PORIGUA
+   83             | DIVIGUA
+   84             | OP_ASIG
+
+   85 INCREMENTO_SYMBOLS: PLUSPLUS
+   86                   | MENMEN
+
+   87 OPERADORES_REL: OP_IGUAL
+   88               | OP_MENIGUA
+   89               | OP_MAYIGUA
+   90               | DIFERENTE
+   91               | MAYOR
+   92               | MENOR
+
+   93 OPERADORES_LOGICOS: OP_Y
+   94                   | OP_O
+   95                   | OP_NO
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    error (256) 2 3 4 6 9 11 15 29 56 57
+    IF (258) 14
+    ELSE (259) 16 17
+    FOR (260) 7 8 9
+    WHILE (261) 10 11
+    DOUBLE (262) 71
+    INT (263) 72
+    STRING (264) 5 73
+    NEW (265) 43 44 46 47
+    PUBLIC (266) 1 5
+    CLASS (267) 1
+    STATIC (268) 5
+    VOID (269) 5
+    OP_MULT (270) 75
+    OP_SUM (271) 77
+    OP_SUST (272) 78
+    OP_DIV (273) 79
+    OP_ASIG (274) 40 43 44 45 46 47 84
+    OP_MOD (275) 76
+    PLUSPLUS (276) 85
+    MENMEN (277) 86
+    MASIGUA (278) 80
+    MENOSIGUA (279) 81
+    PORIGUA (280) 82
+    DIVIGUA (281) 83
+    CORCHET_A (282) 5 18 19 20 21 43 44 46 47
+    CORCHET_C (283) 5 18 19 20 21 43 44 46 47
+    PUNTOYCOM (284) 7 8 50 55 57
+    COMA (285) 22 25 33
+    PARENT_A (286) 5 7 8 9 10 11 14 29 58 60
+    PARENT_C (287) 5 7 8 9 10 11 14 29 58 60
+    LLAVE_A (288) 1 2 4 5 6 7 8 9 10 11 14 15 16 24 45
+    LLAVE_C (289) 1 2 3 5 6 7 8 9 10 11 14 15 16 24 45
+    CTE_ENT (290) 62 66 68
+    CTE_REAL (291) 67 69
+    CTE_CAD (292) 40 70
+    ID (293) 1 5 7 8 18 19 20 21 31 36 39 40 41 63 65
+    OP_IGUAL (294) 87
+    OP_MENIGUA (295) 88
+    OP_MAYIGUA (296) 89
+    DIFERENTE (297) 90
+    MAYOR (298) 91
+    MENOR (299) 92
+    OP_Y (300) 93
+    OP_O (301) 94
+    OP_NO (302) 95
+    CHAR (303) 74
+    COMENTARIO (304) 54
+    ERROR (305)
+    NEWLINE (306)
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (52)
+        on left: 0
+    INICIO (53)
+        on left: 1 2 3 4
+        on right: 0
+    F_MAIN (54)
+        on left: 5 6
+        on right: 1 2 3 4
+    CYCL_FOR (55)
+        on left: 7 8 9
+        on right: 51
+    CYCL_WHILE (56)
+        on left: 10 11
+        on right: 53
+    COND_IF (57)
+        on left: 12 13
+        on right: 52
+    IF_SOLO (58)
+        on left: 14 15
+        on right: 12 13
+    C_ELSE (59)
+        on left: 16 17
+        on right: 13
+    NOM_ARRAY (60)
+        on left: 18 19 20 21
+        on right: 37 42
+    COLUMNAS (61)
+        on left: 22 23
+        on right: 22 45
+    COLUMNA (62)
+        on left: 24
+        on right: 22 23
+    FILA (63)
+        on left: 25 26
+        on right: 24 25
+    CONDICIONALES (64)
+        on left: 27 28 29
+        on right: 10 14 27
+    CONDICIONAL (65)
+        on left: 30 31
+        on right: 27 28
+    DECLARACION (66)
+        on left: 32
+        on right: 7 50
+    DECL_VARIABLES (67)
+        on left: 33 34
+        on right: 32 33
+    DECL_VARIABLE (68)
+        on left: 35 36 37 38
+        on right: 33 34
+    ASIGNACION (69)
+        on left: 39 40 41
+        on right: 7 8 35 55
+    ASIGNACION_ARRAY (70)
+        on left: 42
+        on right: 38
+    ASIGNACION_ARRAY_RIGHT (71)
+        on left: 43 44 45 46 47
+        on right: 42
+    INSTRUCCIONES (72)
+        on left: 48 49
+        on right: 5 6 7 8 9 10 11 14 15 16 48
+    INS (73)
+        on left: 50 51 52 53 54 55 56 57
+        on right: 17 48 49 56
+    OPERACION_MATH_PAREN (74)
+        on left: 58 59 60 61
+        on right: 8 30 39 58 59 60
+    DIMENSION (75)
+        on left: 62 63
+        on right: 7 8 19 21 43 47
+    CONSTANTES_NUM_ID (76)
+        on left: 64 65
+        on right: 59 61
+    CONSTANTES_NUM (77)
+        on left: 66 67
+        on right: 64
+    CONSTANTES (78)
+        on left: 68 69 70
+        on right: 25 26
+    TIPO_VAR (79)
+        on left: 71 72 73 74
+        on right: 32 43 44 46 47
+    OPERADORES_MATH (80)
+        on left: 75 76 77 78 79
+        on right: 59 60
+    ASIG_SYMBOLS (81)
+        on left: 80 81 82 83 84
+        on right: 8 39
+    INCREMENTO_SYMBOLS (82)
+        on left: 85 86
+        on right: 41
+    OPERADORES_REL (83)
+        on left: 87 88 89 90 91 92
+        on right: 7 8 30
+    OPERADORES_LOGICOS (84)
+        on left: 93 94 95
+        on right: 27
+
+
+Estado 0
+
+    0 $accept: • INICIO $end
+
+    error   desplazar e ir al estado 1
+    PUBLIC  desplazar e ir al estado 2
+
+    INICIO  ir al estado 3
+
+
+Estado 1
+
+    2 INICIO: error • LLAVE_A F_MAIN LLAVE_C
+    3       | error • F_MAIN LLAVE_C
+    4       | error • LLAVE_A F_MAIN
+
+    error    desplazar e ir al estado 4
+    PUBLIC   desplazar e ir al estado 5
+    LLAVE_A  desplazar e ir al estado 6
+
+    F_MAIN  ir al estado 7
+
+
+Estado 2
+
+    1 INICIO: PUBLIC • CLASS ID LLAVE_A F_MAIN LLAVE_C
+
+    CLASS  desplazar e ir al estado 8
+
+
+Estado 3
+
+    0 $accept: INICIO • $end
+
+    $end  desplazar e ir al estado 9
+
+
+Estado 4
+
+    6 F_MAIN: error • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 10
+
+
+Estado 5
+
+    5 F_MAIN: PUBLIC • STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    STATIC  desplazar e ir al estado 11
+
+
+Estado 6
+
+    2 INICIO: error LLAVE_A • F_MAIN LLAVE_C
+    4       | error LLAVE_A • F_MAIN
+
+    error   desplazar e ir al estado 4
+    PUBLIC  desplazar e ir al estado 5
+
+    F_MAIN  ir al estado 12
+
+
+Estado 7
+
+    3 INICIO: error F_MAIN • LLAVE_C
+
+    LLAVE_C  desplazar e ir al estado 13
+
+
+Estado 8
+
+    1 INICIO: PUBLIC CLASS • ID LLAVE_A F_MAIN LLAVE_C
+
+    ID  desplazar e ir al estado 14
+
+
+Estado 9
+
+    0 $accept: INICIO $end •
+
+    $default  aceptar
+
+
+Estado 10
+
+    6 F_MAIN: error LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 31
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 11
+
+    5 F_MAIN: PUBLIC STATIC • VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    VOID  desplazar e ir al estado 34
+
+
+Estado 12
+
+    2 INICIO: error LLAVE_A F_MAIN • LLAVE_C
+    4       | error LLAVE_A F_MAIN •
+
+    LLAVE_C  desplazar e ir al estado 35
+
+    $default  reduce usando la regla 4 (INICIO)
+
+
+Estado 13
+
+    3 INICIO: error F_MAIN LLAVE_C •
+
+    $default  reduce usando la regla 3 (INICIO)
+
+
+Estado 14
+
+    1 INICIO: PUBLIC CLASS ID • LLAVE_A F_MAIN LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 36
+
+
+Estado 15
+
+   15 IF_SOLO: error • LLAVE_A INSTRUCCIONES LLAVE_C
+   56 INS: error • INS
+   57    | error • PUNTOYCOM
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    PUNTOYCOM   desplazar e ir al estado 37
+    LLAVE_A     desplazar e ir al estado 38
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 39
+    TIPO_VAR     ir al estado 33
+
+
+Estado 16
+
+   14 IF_SOLO: IF • PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_A  desplazar e ir al estado 40
+
+
+Estado 17
+
+    7 CYCL_FOR: FOR • PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+    8         | FOR • PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+    9         | FOR • PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_A  desplazar e ir al estado 41
+
+
+Estado 18
+
+   10 CYCL_WHILE: WHILE • PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+   11           | WHILE • PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_A  desplazar e ir al estado 42
+
+
+Estado 19
+
+   71 TIPO_VAR: DOUBLE •
+
+    $default  reduce usando la regla 71 (TIPO_VAR)
+
+
+Estado 20
+
+   72 TIPO_VAR: INT •
+
+    $default  reduce usando la regla 72 (TIPO_VAR)
+
+
+Estado 21
+
+   73 TIPO_VAR: STRING •
+
+    $default  reduce usando la regla 73 (TIPO_VAR)
+
+
+Estado 22
+
+   39 ASIGNACION: ID • ASIG_SYMBOLS OPERACION_MATH_PAREN
+   40           | ID • OP_ASIG CTE_CAD
+   41           | ID • INCREMENTO_SYMBOLS
+
+    OP_ASIG    desplazar e ir al estado 43
+    PLUSPLUS   desplazar e ir al estado 44
+    MENMEN     desplazar e ir al estado 45
+    MASIGUA    desplazar e ir al estado 46
+    MENOSIGUA  desplazar e ir al estado 47
+    PORIGUA    desplazar e ir al estado 48
+    DIVIGUA    desplazar e ir al estado 49
+
+    ASIG_SYMBOLS        ir al estado 50
+    INCREMENTO_SYMBOLS  ir al estado 51
+
+
+Estado 23
+
+   74 TIPO_VAR: CHAR •
+
+    $default  reduce usando la regla 74 (TIPO_VAR)
+
+
+Estado 24
+
+   54 INS: COMENTARIO •
+
+    $default  reduce usando la regla 54 (INS)
+
+
+Estado 25
+
+   51 INS: CYCL_FOR •
+
+    $default  reduce usando la regla 51 (INS)
+
+
+Estado 26
+
+   53 INS: CYCL_WHILE •
+
+    $default  reduce usando la regla 53 (INS)
+
+
+Estado 27
+
+   52 INS: COND_IF •
+
+    $default  reduce usando la regla 52 (INS)
+
+
+Estado 28
+
+   12 COND_IF: IF_SOLO •
+   13        | IF_SOLO • C_ELSE
+
+    ELSE  desplazar e ir al estado 52
+
+    $default  reduce usando la regla 12 (COND_IF)
+
+    C_ELSE  ir al estado 53
+
+
+Estado 29
+
+   50 INS: DECLARACION • PUNTOYCOM
+
+    PUNTOYCOM  desplazar e ir al estado 54
+
+
+Estado 30
+
+   55 INS: ASIGNACION • PUNTOYCOM
+
+    PUNTOYCOM  desplazar e ir al estado 55
+
+
+Estado 31
+
+    6 F_MAIN: error LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 56
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 32
+
+   49 INSTRUCCIONES: INS •
+
+    $default  reduce usando la regla 49 (INSTRUCCIONES)
+
+
+Estado 33
+
+   32 DECLARACION: TIPO_VAR • DECL_VARIABLES
+
+    ID  desplazar e ir al estado 58
+
+    NOM_ARRAY         ir al estado 59
+    DECL_VARIABLES    ir al estado 60
+    DECL_VARIABLE     ir al estado 61
+    ASIGNACION        ir al estado 62
+    ASIGNACION_ARRAY  ir al estado 63
+
+
+Estado 34
+
+    5 F_MAIN: PUBLIC STATIC VOID • ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    ID  desplazar e ir al estado 64
+
+
+Estado 35
+
+    2 INICIO: error LLAVE_A F_MAIN LLAVE_C •
+
+    $default  reduce usando la regla 2 (INICIO)
+
+
+Estado 36
+
+    1 INICIO: PUBLIC CLASS ID LLAVE_A • F_MAIN LLAVE_C
+
+    error   desplazar e ir al estado 4
+    PUBLIC  desplazar e ir al estado 5
+
+    F_MAIN  ir al estado 65
+
+
+Estado 37
+
+   57 INS: error PUNTOYCOM •
+
+    $default  reduce usando la regla 57 (INS)
+
+
+Estado 38
+
+   15 IF_SOLO: error LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 66
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 39
+
+   56 INS: error INS •
+
+    $default  reduce usando la regla 56 (INS)
+
+
+Estado 40
+
+   14 IF_SOLO: IF PARENT_A • CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_A  desplazar e ir al estado 67
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 70
+
+    CONDICIONALES         ir al estado 71
+    CONDICIONAL           ir al estado 72
+    OPERACION_MATH_PAREN  ir al estado 73
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 41
+
+    7 CYCL_FOR: FOR PARENT_A • DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+    8         | FOR PARENT_A • ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+    9         | FOR PARENT_A • error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    error   desplazar e ir al estado 76
+    DOUBLE  desplazar e ir al estado 19
+    INT     desplazar e ir al estado 20
+    STRING  desplazar e ir al estado 21
+    ID      desplazar e ir al estado 77
+    CHAR    desplazar e ir al estado 23
+
+    DECLARACION  ir al estado 78
+    TIPO_VAR     ir al estado 33
+
+
+Estado 42
+
+   10 CYCL_WHILE: WHILE PARENT_A • CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+   11           | WHILE PARENT_A • error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    error     desplazar e ir al estado 79
+    PARENT_A  desplazar e ir al estado 67
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 70
+
+    CONDICIONALES         ir al estado 80
+    CONDICIONAL           ir al estado 72
+    OPERACION_MATH_PAREN  ir al estado 73
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 43
+
+   40 ASIGNACION: ID OP_ASIG • CTE_CAD
+   84 ASIG_SYMBOLS: OP_ASIG •
+
+    CTE_CAD  desplazar e ir al estado 81
+
+    $default  reduce usando la regla 84 (ASIG_SYMBOLS)
+
+
+Estado 44
+
+   85 INCREMENTO_SYMBOLS: PLUSPLUS •
+
+    $default  reduce usando la regla 85 (INCREMENTO_SYMBOLS)
+
+
+Estado 45
+
+   86 INCREMENTO_SYMBOLS: MENMEN •
+
+    $default  reduce usando la regla 86 (INCREMENTO_SYMBOLS)
+
+
+Estado 46
+
+   80 ASIG_SYMBOLS: MASIGUA •
+
+    $default  reduce usando la regla 80 (ASIG_SYMBOLS)
+
+
+Estado 47
+
+   81 ASIG_SYMBOLS: MENOSIGUA •
+
+    $default  reduce usando la regla 81 (ASIG_SYMBOLS)
+
+
+Estado 48
+
+   82 ASIG_SYMBOLS: PORIGUA •
+
+    $default  reduce usando la regla 82 (ASIG_SYMBOLS)
+
+
+Estado 49
+
+   83 ASIG_SYMBOLS: DIVIGUA •
+
+    $default  reduce usando la regla 83 (ASIG_SYMBOLS)
+
+
+Estado 50
+
+   39 ASIGNACION: ID ASIG_SYMBOLS • OPERACION_MATH_PAREN
+
+    PARENT_A  desplazar e ir al estado 82
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 83
+
+    OPERACION_MATH_PAREN  ir al estado 84
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 51
+
+   41 ASIGNACION: ID INCREMENTO_SYMBOLS •
+
+    $default  reduce usando la regla 41 (ASIGNACION)
+
+
+Estado 52
+
+   16 C_ELSE: ELSE • LLAVE_A INSTRUCCIONES LLAVE_C
+   17       | ELSE • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_A     desplazar e ir al estado 85
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 86
+    TIPO_VAR     ir al estado 33
+
+
+Estado 53
+
+   13 COND_IF: IF_SOLO C_ELSE •
+
+    $default  reduce usando la regla 13 (COND_IF)
+
+
+Estado 54
+
+   50 INS: DECLARACION PUNTOYCOM •
+
+    $default  reduce usando la regla 50 (INS)
+
+
+Estado 55
+
+   55 INS: ASIGNACION PUNTOYCOM •
+
+    $default  reduce usando la regla 55 (INS)
+
+
+Estado 56
+
+    6 F_MAIN: error LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 6 (F_MAIN)
+
+
+Estado 57
+
+   48 INSTRUCCIONES: INSTRUCCIONES INS •
+
+    $default  reduce usando la regla 48 (INSTRUCCIONES)
+
+
+Estado 58
+
+   18 NOM_ARRAY: ID • CORCHET_A CORCHET_C CORCHET_A CORCHET_C
+   19          | ID • CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   20          | ID • CORCHET_A CORCHET_C
+   21          | ID • CORCHET_A DIMENSION CORCHET_C
+   36 DECL_VARIABLE: ID •
+   39 ASIGNACION: ID • ASIG_SYMBOLS OPERACION_MATH_PAREN
+   40           | ID • OP_ASIG CTE_CAD
+   41           | ID • INCREMENTO_SYMBOLS
+
+    OP_ASIG    desplazar e ir al estado 43
+    PLUSPLUS   desplazar e ir al estado 44
+    MENMEN     desplazar e ir al estado 45
+    MASIGUA    desplazar e ir al estado 46
+    MENOSIGUA  desplazar e ir al estado 47
+    PORIGUA    desplazar e ir al estado 48
+    DIVIGUA    desplazar e ir al estado 49
+    CORCHET_A  desplazar e ir al estado 87
+
+    $default  reduce usando la regla 36 (DECL_VARIABLE)
+
+    ASIG_SYMBOLS        ir al estado 50
+    INCREMENTO_SYMBOLS  ir al estado 51
+
+
+Estado 59
+
+   37 DECL_VARIABLE: NOM_ARRAY •
+   42 ASIGNACION_ARRAY: NOM_ARRAY • ASIGNACION_ARRAY_RIGHT
+
+    OP_ASIG  desplazar e ir al estado 88
+
+    $default  reduce usando la regla 37 (DECL_VARIABLE)
+
+    ASIGNACION_ARRAY_RIGHT  ir al estado 89
+
+
+Estado 60
+
+   32 DECLARACION: TIPO_VAR DECL_VARIABLES •
+
+    $default  reduce usando la regla 32 (DECLARACION)
+
+
+Estado 61
+
+   33 DECL_VARIABLES: DECL_VARIABLE • COMA DECL_VARIABLES
+   34               | DECL_VARIABLE •
+
+    COMA  desplazar e ir al estado 90
+
+    $default  reduce usando la regla 34 (DECL_VARIABLES)
+
+
+Estado 62
+
+   35 DECL_VARIABLE: ASIGNACION •
+
+    $default  reduce usando la regla 35 (DECL_VARIABLE)
+
+
+Estado 63
+
+   38 DECL_VARIABLE: ASIGNACION_ARRAY •
+
+    $default  reduce usando la regla 38 (DECL_VARIABLE)
+
+
+Estado 64
+
+    5 F_MAIN: PUBLIC STATIC VOID ID • PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_A  desplazar e ir al estado 91
+
+
+Estado 65
+
+    1 INICIO: PUBLIC CLASS ID LLAVE_A F_MAIN • LLAVE_C
+
+    LLAVE_C  desplazar e ir al estado 92
+
+
+Estado 66
+
+   15 IF_SOLO: error LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 93
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 67
+
+   29 CONDICIONALES: PARENT_A • error PARENT_C
+   58 OPERACION_MATH_PAREN: PARENT_A • OPERACION_MATH_PAREN PARENT_C
+   60                     | PARENT_A • OPERACION_MATH_PAREN PARENT_C OPERADORES_MATH OPERACION_MATH_PAREN
+
+    error     desplazar e ir al estado 94
+    PARENT_A  desplazar e ir al estado 82
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 83
+
+    OPERACION_MATH_PAREN  ir al estado 95
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 68
+
+   66 CONSTANTES_NUM: CTE_ENT •
+
+    $default  reduce usando la regla 66 (CONSTANTES_NUM)
+
+
+Estado 69
+
+   67 CONSTANTES_NUM: CTE_REAL •
+
+    $default  reduce usando la regla 67 (CONSTANTES_NUM)
+
+
+Estado 70
+
+   31 CONDICIONAL: ID •
+   65 CONSTANTES_NUM_ID: ID •
+
+    PARENT_C  reduce usando la regla 31 (CONDICIONAL)
+    OP_Y      reduce usando la regla 31 (CONDICIONAL)
+    OP_O      reduce usando la regla 31 (CONDICIONAL)
+    OP_NO     reduce usando la regla 31 (CONDICIONAL)
+    $default  reduce usando la regla 65 (CONSTANTES_NUM_ID)
+
+
+Estado 71
+
+   14 IF_SOLO: IF PARENT_A CONDICIONALES • PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_C  desplazar e ir al estado 96
+
+
+Estado 72
+
+   27 CONDICIONALES: CONDICIONAL • OPERADORES_LOGICOS CONDICIONALES
+   28              | CONDICIONAL •
+
+    OP_Y   desplazar e ir al estado 97
+    OP_O   desplazar e ir al estado 98
+    OP_NO  desplazar e ir al estado 99
+
+    $default  reduce usando la regla 28 (CONDICIONALES)
+
+    OPERADORES_LOGICOS  ir al estado 100
+
+
+Estado 73
+
+   30 CONDICIONAL: OPERACION_MATH_PAREN • OPERADORES_REL OPERACION_MATH_PAREN
+
+    OP_IGUAL    desplazar e ir al estado 101
+    OP_MENIGUA  desplazar e ir al estado 102
+    OP_MAYIGUA  desplazar e ir al estado 103
+    DIFERENTE   desplazar e ir al estado 104
+    MAYOR       desplazar e ir al estado 105
+    MENOR       desplazar e ir al estado 106
+
+    OPERADORES_REL  ir al estado 107
+
+
+Estado 74
+
+   59 OPERACION_MATH_PAREN: CONSTANTES_NUM_ID • OPERADORES_MATH OPERACION_MATH_PAREN
+   61                     | CONSTANTES_NUM_ID •
+
+    OP_MULT  desplazar e ir al estado 108
+    OP_SUM   desplazar e ir al estado 109
+    OP_SUST  desplazar e ir al estado 110
+    OP_DIV   desplazar e ir al estado 111
+    OP_MOD   desplazar e ir al estado 112
+
+    $default  reduce usando la regla 61 (OPERACION_MATH_PAREN)
+
+    OPERADORES_MATH  ir al estado 113
+
+
+Estado 75
+
+   64 CONSTANTES_NUM_ID: CONSTANTES_NUM •
+
+    $default  reduce usando la regla 64 (CONSTANTES_NUM_ID)
+
+
+Estado 76
+
+    9 CYCL_FOR: FOR PARENT_A error • PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_C  desplazar e ir al estado 114
+
+
+Estado 77
+
+    8 CYCL_FOR: FOR PARENT_A ID • ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    OP_ASIG    desplazar e ir al estado 115
+    MASIGUA    desplazar e ir al estado 46
+    MENOSIGUA  desplazar e ir al estado 47
+    PORIGUA    desplazar e ir al estado 48
+    DIVIGUA    desplazar e ir al estado 49
+
+    ASIG_SYMBOLS  ir al estado 116
+
+
+Estado 78
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION • PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PUNTOYCOM  desplazar e ir al estado 117
+
+
+Estado 79
+
+   11 CYCL_WHILE: WHILE PARENT_A error • PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_C  desplazar e ir al estado 118
+
+
+Estado 80
+
+   10 CYCL_WHILE: WHILE PARENT_A CONDICIONALES • PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_C  desplazar e ir al estado 119
+
+
+Estado 81
+
+   40 ASIGNACION: ID OP_ASIG CTE_CAD •
+
+    $default  reduce usando la regla 40 (ASIGNACION)
+
+
+Estado 82
+
+   58 OPERACION_MATH_PAREN: PARENT_A • OPERACION_MATH_PAREN PARENT_C
+   60                     | PARENT_A • OPERACION_MATH_PAREN PARENT_C OPERADORES_MATH OPERACION_MATH_PAREN
+
+    PARENT_A  desplazar e ir al estado 82
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 83
+
+    OPERACION_MATH_PAREN  ir al estado 95
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 83
+
+   65 CONSTANTES_NUM_ID: ID •
+
+    $default  reduce usando la regla 65 (CONSTANTES_NUM_ID)
+
+
+Estado 84
+
+   39 ASIGNACION: ID ASIG_SYMBOLS OPERACION_MATH_PAREN •
+
+    $default  reduce usando la regla 39 (ASIGNACION)
+
+
+Estado 85
+
+   16 C_ELSE: ELSE LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 120
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 86
+
+   17 C_ELSE: ELSE INS •
+
+    $default  reduce usando la regla 17 (C_ELSE)
+
+
+Estado 87
+
+   18 NOM_ARRAY: ID CORCHET_A • CORCHET_C CORCHET_A CORCHET_C
+   19          | ID CORCHET_A • DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   20          | ID CORCHET_A • CORCHET_C
+   21          | ID CORCHET_A • DIMENSION CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 121
+    CTE_ENT    desplazar e ir al estado 122
+    ID         desplazar e ir al estado 123
+
+    DIMENSION  ir al estado 124
+
+
+Estado 88
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG • NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   44                       | OP_ASIG • NEW TIPO_VAR CORCHET_A CORCHET_C CORCHET_A CORCHET_C
+   45                       | OP_ASIG • LLAVE_A COLUMNAS LLAVE_C
+   46                       | OP_ASIG • NEW TIPO_VAR CORCHET_A CORCHET_C
+   47                       | OP_ASIG • NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C
+
+    NEW      desplazar e ir al estado 125
+    LLAVE_A  desplazar e ir al estado 126
+
+
+Estado 89
+
+   42 ASIGNACION_ARRAY: NOM_ARRAY ASIGNACION_ARRAY_RIGHT •
+
+    $default  reduce usando la regla 42 (ASIGNACION_ARRAY)
+
+
+Estado 90
+
+   33 DECL_VARIABLES: DECL_VARIABLE COMA • DECL_VARIABLES
+
+    ID  desplazar e ir al estado 58
+
+    NOM_ARRAY         ir al estado 59
+    DECL_VARIABLES    ir al estado 127
+    DECL_VARIABLE     ir al estado 61
+    ASIGNACION        ir al estado 62
+    ASIGNACION_ARRAY  ir al estado 63
+
+
+Estado 91
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A • STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    STRING  desplazar e ir al estado 128
+
+
+Estado 92
+
+    1 INICIO: PUBLIC CLASS ID LLAVE_A F_MAIN LLAVE_C •
+
+    $default  reduce usando la regla 1 (INICIO)
+
+
+Estado 93
+
+   15 IF_SOLO: error LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 15 (IF_SOLO)
+
+
+Estado 94
+
+   29 CONDICIONALES: PARENT_A error • PARENT_C
+
+    PARENT_C  desplazar e ir al estado 129
+
+
+Estado 95
+
+   58 OPERACION_MATH_PAREN: PARENT_A OPERACION_MATH_PAREN • PARENT_C
+   60                     | PARENT_A OPERACION_MATH_PAREN • PARENT_C OPERADORES_MATH OPERACION_MATH_PAREN
+
+    PARENT_C  desplazar e ir al estado 130
+
+
+Estado 96
+
+   14 IF_SOLO: IF PARENT_A CONDICIONALES PARENT_C • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 131
+
+
+Estado 97
+
+   93 OPERADORES_LOGICOS: OP_Y •
+
+    $default  reduce usando la regla 93 (OPERADORES_LOGICOS)
+
+
+Estado 98
+
+   94 OPERADORES_LOGICOS: OP_O •
+
+    $default  reduce usando la regla 94 (OPERADORES_LOGICOS)
+
+
+Estado 99
+
+   95 OPERADORES_LOGICOS: OP_NO •
+
+    $default  reduce usando la regla 95 (OPERADORES_LOGICOS)
+
+
+Estado 100
+
+   27 CONDICIONALES: CONDICIONAL OPERADORES_LOGICOS • CONDICIONALES
+
+    PARENT_A  desplazar e ir al estado 67
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 70
+
+    CONDICIONALES         ir al estado 132
+    CONDICIONAL           ir al estado 72
+    OPERACION_MATH_PAREN  ir al estado 73
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 101
+
+   87 OPERADORES_REL: OP_IGUAL •
+
+    $default  reduce usando la regla 87 (OPERADORES_REL)
+
+
+Estado 102
+
+   88 OPERADORES_REL: OP_MENIGUA •
+
+    $default  reduce usando la regla 88 (OPERADORES_REL)
+
+
+Estado 103
+
+   89 OPERADORES_REL: OP_MAYIGUA •
+
+    $default  reduce usando la regla 89 (OPERADORES_REL)
+
+
+Estado 104
+
+   90 OPERADORES_REL: DIFERENTE •
+
+    $default  reduce usando la regla 90 (OPERADORES_REL)
+
+
+Estado 105
+
+   91 OPERADORES_REL: MAYOR •
+
+    $default  reduce usando la regla 91 (OPERADORES_REL)
+
+
+Estado 106
+
+   92 OPERADORES_REL: MENOR •
+
+    $default  reduce usando la regla 92 (OPERADORES_REL)
+
+
+Estado 107
+
+   30 CONDICIONAL: OPERACION_MATH_PAREN OPERADORES_REL • OPERACION_MATH_PAREN
+
+    PARENT_A  desplazar e ir al estado 82
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 83
+
+    OPERACION_MATH_PAREN  ir al estado 133
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 108
+
+   75 OPERADORES_MATH: OP_MULT •
+
+    $default  reduce usando la regla 75 (OPERADORES_MATH)
+
+
+Estado 109
+
+   77 OPERADORES_MATH: OP_SUM •
+
+    $default  reduce usando la regla 77 (OPERADORES_MATH)
+
+
+Estado 110
+
+   78 OPERADORES_MATH: OP_SUST •
+
+    $default  reduce usando la regla 78 (OPERADORES_MATH)
+
+
+Estado 111
+
+   79 OPERADORES_MATH: OP_DIV •
+
+    $default  reduce usando la regla 79 (OPERADORES_MATH)
+
+
+Estado 112
+
+   76 OPERADORES_MATH: OP_MOD •
+
+    $default  reduce usando la regla 76 (OPERADORES_MATH)
+
+
+Estado 113
+
+   59 OPERACION_MATH_PAREN: CONSTANTES_NUM_ID OPERADORES_MATH • OPERACION_MATH_PAREN
+
+    PARENT_A  desplazar e ir al estado 82
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 83
+
+    OPERACION_MATH_PAREN  ir al estado 134
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 114
+
+    9 CYCL_FOR: FOR PARENT_A error PARENT_C • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 135
+
+
+Estado 115
+
+   84 ASIG_SYMBOLS: OP_ASIG •
+
+    $default  reduce usando la regla 84 (ASIG_SYMBOLS)
+
+
+Estado 116
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS • OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_A  desplazar e ir al estado 82
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 83
+
+    OPERACION_MATH_PAREN  ir al estado 136
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 117
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM • ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    ID  desplazar e ir al estado 137
+
+
+Estado 118
+
+   11 CYCL_WHILE: WHILE PARENT_A error PARENT_C • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 138
+
+
+Estado 119
+
+   10 CYCL_WHILE: WHILE PARENT_A CONDICIONALES PARENT_C • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 139
+
+
+Estado 120
+
+   16 C_ELSE: ELSE LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 140
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 121
+
+   18 NOM_ARRAY: ID CORCHET_A CORCHET_C • CORCHET_A CORCHET_C
+   20          | ID CORCHET_A CORCHET_C •
+
+    CORCHET_A  desplazar e ir al estado 141
+
+    $default  reduce usando la regla 20 (NOM_ARRAY)
+
+
+Estado 122
+
+   62 DIMENSION: CTE_ENT •
+
+    $default  reduce usando la regla 62 (DIMENSION)
+
+
+Estado 123
+
+   63 DIMENSION: ID •
+
+    $default  reduce usando la regla 63 (DIMENSION)
+
+
+Estado 124
+
+   19 NOM_ARRAY: ID CORCHET_A DIMENSION • CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   21          | ID CORCHET_A DIMENSION • CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 142
+
+
+Estado 125
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW • TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   44                       | OP_ASIG NEW • TIPO_VAR CORCHET_A CORCHET_C CORCHET_A CORCHET_C
+   46                       | OP_ASIG NEW • TIPO_VAR CORCHET_A CORCHET_C
+   47                       | OP_ASIG NEW • TIPO_VAR CORCHET_A DIMENSION CORCHET_C
+
+    DOUBLE  desplazar e ir al estado 19
+    INT     desplazar e ir al estado 20
+    STRING  desplazar e ir al estado 21
+    CHAR    desplazar e ir al estado 23
+
+    TIPO_VAR  ir al estado 143
+
+
+Estado 126
+
+   45 ASIGNACION_ARRAY_RIGHT: OP_ASIG LLAVE_A • COLUMNAS LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 144
+
+    COLUMNAS  ir al estado 145
+    COLUMNA   ir al estado 146
+
+
+Estado 127
+
+   33 DECL_VARIABLES: DECL_VARIABLE COMA DECL_VARIABLES •
+
+    $default  reduce usando la regla 33 (DECL_VARIABLES)
+
+
+Estado 128
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING • CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    CORCHET_A  desplazar e ir al estado 147
+
+
+Estado 129
+
+   29 CONDICIONALES: PARENT_A error PARENT_C •
+
+    $default  reduce usando la regla 29 (CONDICIONALES)
+
+
+Estado 130
+
+   58 OPERACION_MATH_PAREN: PARENT_A OPERACION_MATH_PAREN PARENT_C •
+   60                     | PARENT_A OPERACION_MATH_PAREN PARENT_C • OPERADORES_MATH OPERACION_MATH_PAREN
+
+    OP_MULT  desplazar e ir al estado 108
+    OP_SUM   desplazar e ir al estado 109
+    OP_SUST  desplazar e ir al estado 110
+    OP_DIV   desplazar e ir al estado 111
+    OP_MOD   desplazar e ir al estado 112
+
+    $default  reduce usando la regla 58 (OPERACION_MATH_PAREN)
+
+    OPERADORES_MATH  ir al estado 148
+
+
+Estado 131
+
+   14 IF_SOLO: IF PARENT_A CONDICIONALES PARENT_C LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 149
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 132
+
+   27 CONDICIONALES: CONDICIONAL OPERADORES_LOGICOS CONDICIONALES •
+
+    $default  reduce usando la regla 27 (CONDICIONALES)
+
+
+Estado 133
+
+   30 CONDICIONAL: OPERACION_MATH_PAREN OPERADORES_REL OPERACION_MATH_PAREN •
+
+    $default  reduce usando la regla 30 (CONDICIONAL)
+
+
+Estado 134
+
+   59 OPERACION_MATH_PAREN: CONSTANTES_NUM_ID OPERADORES_MATH OPERACION_MATH_PAREN •
+
+    $default  reduce usando la regla 59 (OPERACION_MATH_PAREN)
+
+
+Estado 135
+
+    9 CYCL_FOR: FOR PARENT_A error PARENT_C LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 150
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 136
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN • PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PUNTOYCOM  desplazar e ir al estado 151
+
+
+Estado 137
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID • OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    OP_IGUAL    desplazar e ir al estado 101
+    OP_MENIGUA  desplazar e ir al estado 102
+    OP_MAYIGUA  desplazar e ir al estado 103
+    DIFERENTE   desplazar e ir al estado 104
+    MAYOR       desplazar e ir al estado 105
+    MENOR       desplazar e ir al estado 106
+
+    OPERADORES_REL  ir al estado 152
+
+
+Estado 138
+
+   11 CYCL_WHILE: WHILE PARENT_A error PARENT_C LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 153
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 139
+
+   10 CYCL_WHILE: WHILE PARENT_A CONDICIONALES PARENT_C LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 154
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 140
+
+   16 C_ELSE: ELSE LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 16 (C_ELSE)
+
+
+Estado 141
+
+   18 NOM_ARRAY: ID CORCHET_A CORCHET_C CORCHET_A • CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 155
+
+
+Estado 142
+
+   19 NOM_ARRAY: ID CORCHET_A DIMENSION CORCHET_C • CORCHET_A DIMENSION CORCHET_C
+   21          | ID CORCHET_A DIMENSION CORCHET_C •
+
+    CORCHET_A  desplazar e ir al estado 156
+
+    $default  reduce usando la regla 21 (NOM_ARRAY)
+
+
+Estado 143
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR • CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   44                       | OP_ASIG NEW TIPO_VAR • CORCHET_A CORCHET_C CORCHET_A CORCHET_C
+   46                       | OP_ASIG NEW TIPO_VAR • CORCHET_A CORCHET_C
+   47                       | OP_ASIG NEW TIPO_VAR • CORCHET_A DIMENSION CORCHET_C
+
+    CORCHET_A  desplazar e ir al estado 157
+
+
+Estado 144
+
+   24 COLUMNA: LLAVE_A • FILA LLAVE_C
+
+    CTE_ENT   desplazar e ir al estado 158
+    CTE_REAL  desplazar e ir al estado 159
+    CTE_CAD   desplazar e ir al estado 160
+
+    FILA        ir al estado 161
+    CONSTANTES  ir al estado 162
+
+
+Estado 145
+
+   45 ASIGNACION_ARRAY_RIGHT: OP_ASIG LLAVE_A COLUMNAS • LLAVE_C
+
+    LLAVE_C  desplazar e ir al estado 163
+
+
+Estado 146
+
+   22 COLUMNAS: COLUMNA • COMA COLUMNAS
+   23         | COLUMNA •
+
+    COMA  desplazar e ir al estado 164
+
+    $default  reduce usando la regla 23 (COLUMNAS)
+
+
+Estado 147
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A • CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    CORCHET_C  desplazar e ir al estado 165
+
+
+Estado 148
+
+   60 OPERACION_MATH_PAREN: PARENT_A OPERACION_MATH_PAREN PARENT_C OPERADORES_MATH • OPERACION_MATH_PAREN
+
+    PARENT_A  desplazar e ir al estado 82
+    CTE_ENT   desplazar e ir al estado 68
+    CTE_REAL  desplazar e ir al estado 69
+    ID        desplazar e ir al estado 83
+
+    OPERACION_MATH_PAREN  ir al estado 166
+    CONSTANTES_NUM_ID     ir al estado 74
+    CONSTANTES_NUM        ir al estado 75
+
+
+Estado 149
+
+   14 IF_SOLO: IF PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 167
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 150
+
+    9 CYCL_FOR: FOR PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 168
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 151
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM • ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    ID  desplazar e ir al estado 169
+
+
+Estado 152
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL • DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    CTE_ENT  desplazar e ir al estado 122
+    ID       desplazar e ir al estado 123
+
+    DIMENSION  ir al estado 170
+
+
+Estado 153
+
+   11 CYCL_WHILE: WHILE PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 171
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 154
+
+   10 CYCL_WHILE: WHILE PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 172
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 155
+
+   18 NOM_ARRAY: ID CORCHET_A CORCHET_C CORCHET_A CORCHET_C •
+
+    $default  reduce usando la regla 18 (NOM_ARRAY)
+
+
+Estado 156
+
+   19 NOM_ARRAY: ID CORCHET_A DIMENSION CORCHET_C CORCHET_A • DIMENSION CORCHET_C
+
+    CTE_ENT  desplazar e ir al estado 122
+    ID       desplazar e ir al estado 123
+
+    DIMENSION  ir al estado 173
+
+
+Estado 157
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A • DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   44                       | OP_ASIG NEW TIPO_VAR CORCHET_A • CORCHET_C CORCHET_A CORCHET_C
+   46                       | OP_ASIG NEW TIPO_VAR CORCHET_A • CORCHET_C
+   47                       | OP_ASIG NEW TIPO_VAR CORCHET_A • DIMENSION CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 174
+    CTE_ENT    desplazar e ir al estado 122
+    ID         desplazar e ir al estado 123
+
+    DIMENSION  ir al estado 175
+
+
+Estado 158
+
+   68 CONSTANTES: CTE_ENT •
+
+    $default  reduce usando la regla 68 (CONSTANTES)
+
+
+Estado 159
+
+   69 CONSTANTES: CTE_REAL •
+
+    $default  reduce usando la regla 69 (CONSTANTES)
+
+
+Estado 160
+
+   70 CONSTANTES: CTE_CAD •
+
+    $default  reduce usando la regla 70 (CONSTANTES)
+
+
+Estado 161
+
+   24 COLUMNA: LLAVE_A FILA • LLAVE_C
+
+    LLAVE_C  desplazar e ir al estado 176
+
+
+Estado 162
+
+   25 FILA: CONSTANTES • COMA FILA
+   26     | CONSTANTES •
+
+    COMA  desplazar e ir al estado 177
+
+    $default  reduce usando la regla 26 (FILA)
+
+
+Estado 163
+
+   45 ASIGNACION_ARRAY_RIGHT: OP_ASIG LLAVE_A COLUMNAS LLAVE_C •
+
+    $default  reduce usando la regla 45 (ASIGNACION_ARRAY_RIGHT)
+
+
+Estado 164
+
+   22 COLUMNAS: COLUMNA COMA • COLUMNAS
+
+    LLAVE_A  desplazar e ir al estado 144
+
+    COLUMNAS  ir al estado 178
+    COLUMNA   ir al estado 146
+
+
+Estado 165
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C • ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    ID  desplazar e ir al estado 179
+
+
+Estado 166
+
+   60 OPERACION_MATH_PAREN: PARENT_A OPERACION_MATH_PAREN PARENT_C OPERADORES_MATH OPERACION_MATH_PAREN •
+
+    $default  reduce usando la regla 60 (OPERACION_MATH_PAREN)
+
+
+Estado 167
+
+   14 IF_SOLO: IF PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 14 (IF_SOLO)
+
+
+Estado 168
+
+    9 CYCL_FOR: FOR PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 9 (CYCL_FOR)
+
+
+Estado 169
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID • OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    OP_IGUAL    desplazar e ir al estado 101
+    OP_MENIGUA  desplazar e ir al estado 102
+    OP_MAYIGUA  desplazar e ir al estado 103
+    DIFERENTE   desplazar e ir al estado 104
+    MAYOR       desplazar e ir al estado 105
+    MENOR       desplazar e ir al estado 106
+
+    OPERADORES_REL  ir al estado 180
+
+
+Estado 170
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION • PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PUNTOYCOM  desplazar e ir al estado 181
+
+
+Estado 171
+
+   11 CYCL_WHILE: WHILE PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 11 (CYCL_WHILE)
+
+
+Estado 172
+
+   10 CYCL_WHILE: WHILE PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 10 (CYCL_WHILE)
+
+
+Estado 173
+
+   19 NOM_ARRAY: ID CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION • CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 182
+
+
+Estado 174
+
+   44 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C • CORCHET_A CORCHET_C
+   46                       | OP_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C •
+
+    CORCHET_A  desplazar e ir al estado 183
+
+    $default  reduce usando la regla 46 (ASIGNACION_ARRAY_RIGHT)
+
+
+Estado 175
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION • CORCHET_C CORCHET_A DIMENSION CORCHET_C
+   47                       | OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION • CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 184
+
+
+Estado 176
+
+   24 COLUMNA: LLAVE_A FILA LLAVE_C •
+
+    $default  reduce usando la regla 24 (COLUMNA)
+
+
+Estado 177
+
+   25 FILA: CONSTANTES COMA • FILA
+
+    CTE_ENT   desplazar e ir al estado 158
+    CTE_REAL  desplazar e ir al estado 159
+    CTE_CAD   desplazar e ir al estado 160
+
+    FILA        ir al estado 185
+    CONSTANTES  ir al estado 162
+
+
+Estado 178
+
+   22 COLUMNAS: COLUMNA COMA COLUMNAS •
+
+    $default  reduce usando la regla 22 (COLUMNAS)
+
+
+Estado 179
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID • PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_C  desplazar e ir al estado 186
+
+
+Estado 180
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL • DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    CTE_ENT  desplazar e ir al estado 122
+    ID       desplazar e ir al estado 123
+
+    DIMENSION  ir al estado 187
+
+
+Estado 181
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM • ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    ID  desplazar e ir al estado 22
+
+    ASIGNACION  ir al estado 188
+
+
+Estado 182
+
+   19 NOM_ARRAY: ID CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C •
+
+    $default  reduce usando la regla 19 (NOM_ARRAY)
+
+
+Estado 183
+
+   44 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C CORCHET_A • CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 189
+
+
+Estado 184
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C • CORCHET_A DIMENSION CORCHET_C
+   47                       | OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C •
+
+    CORCHET_A  desplazar e ir al estado 190
+
+    $default  reduce usando la regla 47 (ASIGNACION_ARRAY_RIGHT)
+
+
+Estado 185
+
+   25 FILA: CONSTANTES COMA FILA •
+
+    $default  reduce usando la regla 25 (FILA)
+
+
+Estado 186
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 191
+
+
+Estado 187
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION • PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PUNTOYCOM  desplazar e ir al estado 192
+
+
+Estado 188
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION • PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_C  desplazar e ir al estado 193
+
+
+Estado 189
+
+   44 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A CORCHET_C CORCHET_A CORCHET_C •
+
+    $default  reduce usando la regla 44 (ASIGNACION_ARRAY_RIGHT)
+
+
+Estado 190
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCHET_A • DIMENSION CORCHET_C
+
+    CTE_ENT  desplazar e ir al estado 122
+    ID       desplazar e ir al estado 123
+
+    DIMENSION  ir al estado 194
+
+
+Estado 191
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 195
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 192
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM • ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    ID  desplazar e ir al estado 22
+
+    ASIGNACION  ir al estado 196
+
+
+Estado 193
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 197
+
+
+Estado 194
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION • CORCHET_C
+
+    CORCHET_C  desplazar e ir al estado 198
+
+
+Estado 195
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 199
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 196
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION • PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+
+    PARENT_C  desplazar e ir al estado 200
+
+
+Estado 197
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 201
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 198
+
+   43 ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCHET_A DIMENSION CORCHET_C •
+
+    $default  reduce usando la regla 43 (ASIGNACION_ARRAY_RIGHT)
+
+
+Estado 199
+
+    5 F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 5 (F_MAIN)
+
+
+Estado 200
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C • LLAVE_A INSTRUCCIONES LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 202
+
+
+Estado 201
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 203
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 202
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A • INSTRUCCIONES LLAVE_C
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR       ir al estado 25
+    CYCL_WHILE     ir al estado 26
+    COND_IF        ir al estado 27
+    IF_SOLO        ir al estado 28
+    DECLARACION    ir al estado 29
+    ASIGNACION     ir al estado 30
+    INSTRUCCIONES  ir al estado 204
+    INS            ir al estado 32
+    TIPO_VAR       ir al estado 33
+
+
+Estado 203
+
+    7 CYCL_FOR: FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 7 (CYCL_FOR)
+
+
+Estado 204
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES • LLAVE_C
+   48 INSTRUCCIONES: INSTRUCCIONES • INS
+
+    error       desplazar e ir al estado 15
+    IF          desplazar e ir al estado 16
+    FOR         desplazar e ir al estado 17
+    WHILE       desplazar e ir al estado 18
+    DOUBLE      desplazar e ir al estado 19
+    INT         desplazar e ir al estado 20
+    STRING      desplazar e ir al estado 21
+    LLAVE_C     desplazar e ir al estado 205
+    ID          desplazar e ir al estado 22
+    CHAR        desplazar e ir al estado 23
+    COMENTARIO  desplazar e ir al estado 24
+
+    CYCL_FOR     ir al estado 25
+    CYCL_WHILE   ir al estado 26
+    COND_IF      ir al estado 27
+    IF_SOLO      ir al estado 28
+    DECLARACION  ir al estado 29
+    ASIGNACION   ir al estado 30
+    INS          ir al estado 57
+    TIPO_VAR     ir al estado 33
+
+
+Estado 205
+
+    8 CYCL_FOR: FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C •
+
+    $default  reduce usando la regla 8 (CYCL_FOR)

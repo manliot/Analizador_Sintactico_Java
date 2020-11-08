@@ -75,6 +75,10 @@
 %token ERROR  
 %token NEWLINE    
 
+%left OP_MOD
+%right OP_ASIG
+%left OP_SUM OP_SUST
+%left OP_MULT OP_DIV
 
 
 %%
@@ -82,22 +86,29 @@
  Reglas Gramaticales  
  ***********************/
 
-INICIO: PUBLIC CLASS ID LLAVE_A F_MAIN LLAVE_C;  
-
-F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C;
-        
-
+INICIO: PUBLIC CLASS ID LLAVE_A F_MAIN LLAVE_C          
+        |error LLAVE_A F_MAIN LLAVE_C {yyerrok;yyclearin;}
+        |error F_MAIN LLAVE_C {yyerror(yytext);}
+        |error LLAVE_A F_MAIN {yyerror(yytext);}
+        ;
+F_MAIN: PUBLIC STATIC VOID ID PARENT_A STRING CORCHET_A CORCHET_C ID PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+        |error LLAVE_A INSTRUCCIONES LLAVE_C{yyerrok;yyclearin;};
+       
 CYCL_FOR:  FOR PARENT_A DECLARACION PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C 
           |FOR PARENT_A ID ASIG_SYMBOLS OPERACION_MATH_PAREN PUNTOYCOM ID OPERADORES_REL DIMENSION PUNTOYCOM ASIGNACION PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C 
-          ;
+        |FOR PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C  {yyerrok ; yyclearin ; }
+        ;
 
-CYCL_WHILE: WHILE PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C;
+CYCL_WHILE: WHILE PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
+        |WHILE PARENT_A error PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C {yyerrok ; yyclearin ; }
+        ;
 
 COND_IF: IF_SOLO 
         | IF_SOLO C_ELSE;
 
 IF_SOLO: IF PARENT_A CONDICIONALES PARENT_C LLAVE_A INSTRUCCIONES LLAVE_C
          /* |IF PARENT_A CONDICIONALES PARENT_C  INS  */
+         |error LLAVE_A INSTRUCCIONES LLAVE_C{yyerrok;yyclearin;};
          ; 
 
 C_ELSE: ELSE LLAVE_A INSTRUCCIONES LLAVE_C  
@@ -116,7 +127,8 @@ COLUMNA: LLAVE_A FILA LLAVE_C  ;
 FILA:  CONSTANTES COMA FILA       
         | CONSTANTES ;        
 CONDICIONALES: CONDICIONAL OPERADORES_LOGICOS CONDICIONALES
-              |CONDICIONAL;
+              |CONDICIONAL
+              |PARENT_A error PARENT_C {yyerrok;yyclearin;};
 
 CONDICIONAL: OPERACION_MATH_PAREN OPERADORES_REL OPERACION_MATH_PAREN
             |ID;
@@ -143,7 +155,7 @@ ASIGNACION_ARRAY_RIGHT: OP_ASIG NEW TIPO_VAR CORCHET_A DIMENSION CORCHET_C CORCH
                          ;
 
 INSTRUCCIONES: INSTRUCCIONES INS;
-         | INS
+         | INS         
          ;
          
 INS: DECLARACION PUNTOYCOM
@@ -151,9 +163,11 @@ INS: DECLARACION PUNTOYCOM
     |COND_IF
     |CYCL_WHILE
     |COMENTARIO
-    |ASIGNACION PUNTOYCOM
-    |error PUNTOYCOM {yyerrok ; yyclearin ;}
+    |ASIGNACION PUNTOYCOM   
+    |error INS  {yyerrok ; yyclearin ;}
+    |error PUNTOYCOM {yyerrok ; yyclearin ; } /* normalmente cuando se encuentra un error ocaciona una avalancha de errores por lo tanto el vaino ese no muestra errores cuando son varios seguidos, con yyerrok se obliga que muestre todos los mensajes  */
   ;
+  
     
     
     
@@ -202,7 +216,7 @@ void yyerror(char *s)
 	
 	
 	
-        printf("\tError sintactico [linea %d]  \n", yylineno); 
+        printf("\tError sintactico [linea %d] %s \n", yylineno,yytext); 
 }
 
 int main(){

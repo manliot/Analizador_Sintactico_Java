@@ -1,11 +1,12 @@
 public class Anything{
     public static void main (String[] args){
+
         /*h
         int matriz[1][] = {{2,4,4},{6,6,9},{8,10,12}};
         int matriz[][] = new int [][];
         hola esto es un come
         tario */
-        int j>=((1+(1)));
+        int j=((1+(1)));
         int j="ljslkjs";
         if(i==0){
             String profesional;
@@ -20,11 +21,11 @@ public class Anything{
             }else
                 String profesional;            
         }
-        while(i==1){
+        while(i=1){
             String a= "hola terricola";
             String a= "hola internauta";
         }
-        for (  k = 1; k < j; k+=1){
+        for (  k  =1; k < j; k+=1){
             i*=k;
             z/=2.0;
         }  
@@ -33,14 +34,6 @@ public class Anything{
         int y=1,x=2;
         int yx;
         int y;
-        int x
-        float x=1.3;
-        float x=1.3;
-        x=x;
-        x="Hola mis amigos";
-        int y=1,x=2;
-        int yx;
-        int y;
         int x;
         float x=1.3;
         float x=1.3;
@@ -54,15 +47,16 @@ public class Anything{
         float x=1.3;
         x=x;
         x="Hola mis amigos";
+        int y=1,x=2;
         int yx;
         int y;
         int x;
         float x=1.3;
         float x=1.3;
+        x=x;
+        x="Hola mis amigos";
+       
         x=x;
         x="Hola mis amigos";
         }
-}
-
-
-
+}        
